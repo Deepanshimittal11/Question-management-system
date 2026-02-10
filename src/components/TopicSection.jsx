@@ -80,9 +80,9 @@ export function TopicSection({
   const progress = questions.length ? Math.round((solvedCount / questions.length) * 100) : 0;
 
   return (
-    <div className="rounded-xl border border-slate-600/60 bg-slate-800/40 overflow-hidden">
+    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 shadow-[0_18px_50px_rgba(15,23,42,0.9)] overflow-hidden">
       <div
-        className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-700/30 transition-colors"
+        className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-800/70 transition-colors"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <SortableTopicHeader
@@ -91,18 +91,18 @@ export function TopicSection({
           onDelete={(name) => onDeleteTopic(name)}
         />
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-24 h-2 bg-slate-600 rounded-full overflow-hidden">
+          <div className="hidden md:flex items-center gap-2">
+            <div className="w-28 h-2 bg-slate-800 rounded-full overflow-hidden">
               <div
-                className="h-full bg-emerald-500 rounded-full transition-all"
+                className="h-full bg-gradient-to-r from-emerald-400 via-indigo-400 to-sky-400 rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <span className="text-sm text-slate-400">{solvedCount}/{questions.length}</span>
+            <span className="text-xs font-mono text-slate-400">{solvedCount}/{questions.length}</span>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
-            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-600 transition-colors"
+            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
           >
             <svg
               className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
@@ -117,12 +117,12 @@ export function TopicSection({
       </div>
 
       {isExpanded && (
-        <div className="px-5 pb-5 space-y-4">
+        <div className="px-5 pb-5 space-y-4 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-950/40">
           <div className="flex flex-wrap gap-2">
             {subTopics.map((sub) => (
               <span
                 key={sub}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-700 text-slate-300 text-sm"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-800/80 ring-1 ring-slate-600/70 text-slate-200 text-xs"
               >
                 {sub}
                 <button
@@ -149,20 +149,26 @@ export function TopicSection({
                   onChange={(e) => setNewSubName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddSubTopic()}
                   placeholder="Sub-topic name"
-                  className="px-3 py-1 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   autoFocus
                 />
-                <button onClick={handleAddSubTopic} className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm">
+                <button
+                  onClick={handleAddSubTopic}
+                  className="px-3 py-1 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium shadow-sm shadow-indigo-500/30"
+                >
                   Add
                 </button>
-                <button onClick={() => { setShowAddSub(false); setNewSubName(''); }} className="px-3 py-1 rounded-lg text-slate-400 hover:text-white text-sm">
+                <button
+                  onClick={() => { setShowAddSub(false); setNewSubName(''); }}
+                  className="px-3 py-1 rounded-lg text-slate-400 hover:text-white text-sm"
+                >
                   Cancel
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => setShowAddSub(true)}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-dashed border-slate-500 text-slate-400 hover:border-indigo-500 hover:text-indigo-400 text-sm transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-dashed border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-300 text-xs transition-colors bg-slate-900/60"
               >
                 + Add sub-topic
               </button>
@@ -187,7 +193,7 @@ export function TopicSection({
 
           <button
             onClick={() => onAddQuestion(topicName)}
-            className="w-full py-3 rounded-lg border border-dashed border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400 transition-colors text-sm font-medium"
+            className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-slate-400 hover:border-indigo-500 hover:text-indigo-300 transition-colors text-sm font-medium bg-slate-900/60"
           >
             + Add question
           </button>

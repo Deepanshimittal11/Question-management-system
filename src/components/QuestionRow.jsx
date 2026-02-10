@@ -2,9 +2,9 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const difficultyColors = {
-  Easy: 'text-emerald-400',
-  Medium: 'text-amber-400',
-  Hard: 'text-rose-400',
+  Easy: 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/40',
+  Medium: 'bg-amber-500/10 text-amber-300 ring-1 ring-amber-400/40',
+  Hard: 'bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/40',
 };
 
 export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
@@ -26,10 +26,10 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`group flex items-center gap-3 rounded-lg border px-4 py-3 transition-all ${
+      className={`group flex items-center gap-3 rounded-xl border px-4 py-3 transition-all ${
         isDragging
-          ? 'border-indigo-500 bg-slate-700/80 shadow-lg opacity-90'
-          : 'border-slate-600/50 bg-slate-800/50 hover:border-slate-500 hover:bg-slate-700/50'
+          ? 'border-indigo-500/80 bg-slate-800/90 shadow-xl shadow-indigo-500/30 opacity-95'
+          : 'border-slate-700/70 bg-slate-900/70 hover:border-slate-500 hover:bg-slate-800/70'
       }`}
     >
       <button
@@ -45,7 +45,7 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
       </button>
       <button
         onClick={() => onToggleSolved(question._id)}
-        className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+        className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
           question.isSolved
             ? 'bg-emerald-500 border-emerald-500 text-white'
             : 'border-slate-500 hover:border-emerald-400'
@@ -63,17 +63,25 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
           href={question.questionId.problemUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block truncate font-medium hover:text-indigo-400 transition-colors ${
-            question.isSolved ? 'text-slate-400 line-through' : 'text-slate-200'
+          className={`block truncate font-medium hover:text-indigo-300 transition-colors ${
+            question.isSolved ? 'text-slate-400 line-through' : 'text-slate-100'
           }`}
         >
           {question.title}
         </a>
-        <div className="flex items-center gap-2 mt-0.5">
-          <span className={`text-xs font-mono ${difficultyColors[question.questionId.difficulty] || 'text-slate-400'}`}>
-            {question.questionId.difficulty}
+        <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+          <span
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-medium ${
+              difficultyColors[question.questionId.difficulty] || 'bg-slate-800 text-slate-300 ring-1 ring-slate-600'
+            }`}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-current opacity-80" />
+            <span>{question.questionId.difficulty}</span>
           </span>
-          <span className="text-xs text-slate-500">{question.questionId.platform}</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-800/70 px-2 py-0.5 font-mono text-[11px] text-slate-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+            <span>{question.questionId.platform}</span>
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">

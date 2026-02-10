@@ -101,8 +101,11 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-codolio-dark flex items-center justify-center">
-        <div className="text-slate-400">Loading sheet...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+        <div className="px-6 py-4 rounded-xl border border-slate-800 bg-slate-900/60 shadow-xl">
+          <p className="text-sm font-medium tracking-wide text-slate-300">Loading your sheet…</p>
+          <p className="mt-2 text-xs text-slate-500">Fetching questions and progress from Codolio.</p>
+        </div>
       </div>
     );
   }
@@ -111,26 +114,46 @@ function App() {
   const totalProgress = questions.length ? Math.round((totalSolved / questions.length) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-codolio-dark text-slate-200 font-sans">
-      <header className="sticky top-0 z-40 border-b border-slate-700/60 bg-codolio-dark/95 backdrop-blur">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-bold text-white">{sheetName}</h1>
-              <p className="text-sm text-slate-400 mt-0.5">
-                {totalSolved} / {questions.length} solved · {totalProgress}% complete
-              </p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-200 font-sans">
+      <header className="sticky top-0 z-40 border-b border-slate-800/70 bg-slate-950/85 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-end gap-2">
+                <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+                  {sheetName}
+                </h1>
+              </div>
+              <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-400">
+                <span className="font-medium text-slate-200">
+                  {totalSolved} / {questions.length} solved
+                </span>
+                <span className="hidden sm:inline text-slate-600">•</span>
+                <span>{totalProgress}% complete</span>
+              </div>
+              <div className="mt-2 flex items-center gap-3">
+                <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-indigo-400 to-sky-400 transition-all"
+                    style={{ width: `${totalProgress}%` }}
+                  />
+                </div>
+                <span className="text-xs font-mono text-slate-400 min-w-[3rem] text-right">
+                  {totalProgress}%
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+
+            <div className="flex items-center justify-end gap-2">
               {showAddTopic ? (
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row">
                   <input
                     type="text"
                     value={newTopicName}
                     onChange={(e) => setNewTopicName(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && (addTopic(newTopicName.trim()), setNewTopicName(''), setShowAddTopic(false))}
-                    placeholder="Topic name"
-                    className="px-3 py-2 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="New topic name"
+                    className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:border-indigo-500"
                     autoFocus
                   />
                   <button
@@ -139,20 +162,26 @@ function App() {
                       setNewTopicName('');
                       setShowAddTopic(false);
                     }}
-                    className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium"
+                    className="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium shadow-sm shadow-indigo-500/40"
                   >
                     Add
                   </button>
-                  <button onClick={() => { setShowAddTopic(false); setNewTopicName(''); }} className="px-3 py-2 text-slate-400 hover:text-white text-sm">
+                  <button
+                    onClick={() => { setShowAddTopic(false); setNewTopicName(''); }}
+                    className="px-3 py-2 text-slate-400 hover:text-white text-sm"
+                  >
                     Cancel
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={() => setShowAddTopic(true)}
-                  className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-lg border border-indigo-500/40 bg-indigo-500/15 px-4 py-2 text-sm font-medium text-indigo-100 hover:bg-indigo-500/25 hover:border-indigo-400 transition-colors"
                 >
-                  <span>+</span> Add Topic
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-white">
+                    +
+                  </span>
+                  <span>Add topic</span>
                 </button>
               )}
             </div>
@@ -160,7 +189,30 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-4 sm:px-6 sm:py-5 shadow-[0_18px_60px_rgba(15,23,42,0.9)]">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-slate-300">
+                Curate and track all your DSA practice in one place.
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                Drag topics and questions to reorder, mark them as solved, and keep your prep on track.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs">
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-slate-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <span>{totalSolved} solved</span>
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-slate-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
+                <span>{questions.length - totalSolved} pending</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleTopicDragEnd}>
           <SortableContext items={orderedTopics.map((t) => `topic-${t}`)} strategy={verticalListSortingStrategy}>
             <div className="space-y-6">
