@@ -101,9 +101,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <div className="px-6 py-4 rounded-xl border border-slate-800 bg-slate-900/60 shadow-xl">
-          <p className="text-sm font-medium tracking-wide text-slate-300">Loading your sheet…</p>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="px-6 py-4 rounded-xl border border-slate-200 bg-white shadow-lg">
+          <p className="text-sm font-medium tracking-wide text-slate-800">Loading your sheet…</p>
           <p className="mt-2 text-xs text-slate-500">Fetching questions and progress from Codolio.</p>
         </div>
       </div>
@@ -114,31 +114,31 @@ function App() {
   const totalProgress = questions.length ? Math.round((totalSolved / questions.length) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-200 font-sans">
-      <header className="sticky top-0 z-40 border-b border-slate-800/70 bg-slate-950/85 backdrop-blur-md">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <div className="flex flex-wrap items-end gap-2">
-                <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+                <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
                   {sheetName}
                 </h1>
               </div>
-              <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-400">
-                <span className="font-medium text-slate-200">
+              <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-500">
+                <span className="font-medium text-slate-800">
                   {totalSolved} / {questions.length} solved
                 </span>
-                <span className="hidden sm:inline text-slate-600">•</span>
+                <span className="hidden sm:inline text-slate-300">•</span>
                 <span>{totalProgress}% complete</span>
               </div>
               <div className="mt-2 flex items-center gap-3">
-                <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-slate-200 overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-indigo-400 to-sky-400 transition-all"
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 transition-all"
                     style={{ width: `${totalProgress}%` }}
                   />
                 </div>
-                <span className="text-xs font-mono text-slate-400 min-w-[3rem] text-right">
+                <span className="text-xs font-mono text-slate-500 min-w-[3rem] text-right">
                   {totalProgress}%
                 </span>
               </div>
@@ -153,7 +153,7 @@ function App() {
                     onChange={(e) => setNewTopicName(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && (addTopic(newTopicName.trim()), setNewTopicName(''), setShowAddTopic(false))}
                     placeholder="New topic name"
-                    className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/80 focus:border-indigo-500"
+                    className="px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/80 focus:border-emerald-500"
                     autoFocus
                   />
                   <button
@@ -162,13 +162,13 @@ function App() {
                       setNewTopicName('');
                       setShowAddTopic(false);
                     }}
-                    className="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium shadow-sm shadow-indigo-500/40"
+                    className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-medium shadow-sm shadow-emerald-500/40"
                   >
                     Add
                   </button>
                   <button
                     onClick={() => { setShowAddTopic(false); setNewTopicName(''); }}
-                    className="px-3 py-2 text-slate-400 hover:text-white text-sm"
+                    className="px-3 py-2 text-slate-500 hover:text-slate-800 text-sm"
                   >
                     Cancel
                   </button>
@@ -176,9 +176,9 @@ function App() {
               ) : (
                 <button
                   onClick={() => setShowAddTopic(true)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-indigo-500/40 bg-indigo-500/15 px-4 py-2 text-sm font-medium text-indigo-100 hover:bg-indigo-500/25 hover:border-indigo-400 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors"
                 >
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-white">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-xs font-semibold text-white">
                     +
                   </span>
                   <span>Add topic</span>
@@ -190,10 +190,10 @@ function App() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        <section className="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-4 sm:px-6 sm:py-5 shadow-[0_18px_60px_rgba(15,23,42,0.9)]">
+        <section className="rounded-2xl border border-slate-200 bg-white px-4 py-4 sm:px-6 sm:py-5 shadow-md">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm text-slate-300">
+              <p className="text-sm text-slate-800">
                 Curate and track all your DSA practice in one place.
               </p>
               <p className="text-xs text-slate-500 mt-1">
@@ -201,12 +201,12 @@ function App() {
               </p>
             </div>
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-slate-300">
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-slate-700">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 <span>{totalSolved} solved</span>
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-slate-300">
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-slate-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
                 <span>{questions.length - totalSolved} pending</span>
               </span>
             </div>
@@ -248,11 +248,11 @@ function App() {
         </DndContext>
 
         {orderedTopics.length === 0 && (
-          <div className="text-center py-16 rounded-xl border border-dashed border-slate-600">
-            <p className="text-slate-400 mb-4">No topics yet. Add your first topic to get started.</p>
+          <div className="text-center py-16 rounded-xl border border-dashed border-slate-300 bg-white">
+            <p className="text-slate-500 mb-4">No topics yet. Add your first topic to get started.</p>
             <button
               onClick={() => setShowAddTopic(true)}
-              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium"
+              className="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium"
             >
               + Add Topic
             </button>

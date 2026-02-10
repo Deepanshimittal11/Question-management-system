@@ -18,16 +18,16 @@ function SortableTopicHeader({ topicName, onEdit, onDelete }) {
 
   return (
     <div ref={setNodeRef} style={style} className="flex items-center gap-2 group">
-      <button {...attributes} {...listeners} className="p-1 text-slate-400 hover:text-slate-300 cursor-grab rounded" aria-label="Drag topic">
+      <button {...attributes} {...listeners} className="p-1 text-slate-400 hover:text-slate-600 cursor-grab rounded" aria-label="Drag topic">
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
           <circle cx="4" cy="4" r="1.2" /><circle cx="4" cy="8" r="1.2" /><circle cx="4" cy="12" r="1.2" />
           <circle cx="8" cy="4" r="1.2" /><circle cx="8" cy="8" r="1.2" /><circle cx="8" cy="12" r="1.2" />
         </svg>
       </button>
-      <h3 className="text-lg font-semibold text-slate-100">{topicName}</h3>
+      <h3 className="text-lg font-semibold text-slate-900">{topicName}</h3>
       <div className="opacity-0 group-hover:opacity-100 flex gap-1 transition-opacity" onClick={(e) => e.stopPropagation()}>
-        <button onClick={(e) => { e.stopPropagation(); onEdit(topicName); }} className="p-1.5 rounded text-slate-400 hover:text-indigo-400 hover:bg-slate-600" aria-label="Edit topic">✎</button>
-        <button onClick={(e) => { e.stopPropagation(); onDelete(topicName); }} className="p-1.5 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-600" aria-label="Delete topic">🗑</button>
+        <button onClick={(e) => { e.stopPropagation(); onEdit(topicName); }} className="p-1.5 rounded text-slate-400 hover:text-emerald-500 hover:bg-slate-100" aria-label="Edit topic">✎</button>
+        <button onClick={(e) => { e.stopPropagation(); onDelete(topicName); }} className="p-1.5 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100" aria-label="Delete topic">🗑</button>
       </div>
     </div>
   );
@@ -80,9 +80,9 @@ export function TopicSection({
   const progress = questions.length ? Math.round((solvedCount / questions.length) * 100) : 0;
 
   return (
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 shadow-[0_18px_50px_rgba(15,23,42,0.9)] overflow-hidden">
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
       <div
-        className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-800/70 transition-colors"
+        className="flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-50 transition-colors"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <SortableTopicHeader
@@ -92,17 +92,17 @@ export function TopicSection({
         />
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2">
-            <div className="w-28 h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-28 h-2 bg-slate-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-emerald-400 via-indigo-400 to-sky-400 rounded-full transition-all"
+                className="h-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <span className="text-xs font-mono text-slate-400">{solvedCount}/{questions.length}</span>
+            <span className="text-xs font-mono text-slate-500">{solvedCount}/{questions.length}</span>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
-            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
           >
             <svg
               className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
@@ -117,24 +117,24 @@ export function TopicSection({
       </div>
 
       {isExpanded && (
-        <div className="px-5 pb-5 space-y-4 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-950/40">
+        <div className="px-5 pb-5 space-y-4 bg-white">
           <div className="flex flex-wrap gap-2">
             {subTopics.map((sub) => (
               <span
                 key={sub}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-800/80 ring-1 ring-slate-600/70 text-slate-200 text-xs"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 ring-1 ring-slate-200 text-slate-700 text-xs"
               >
                 {sub}
                 <button
                   onClick={() => onEditSubTopic(topicName, sub, prompt('Edit sub-topic:', sub) || sub)}
-                  className="hover:text-indigo-400"
+                  className="hover:text-emerald-500"
                   aria-label="Edit"
                 >
                   ✎
                 </button>
                 <button
                   onClick={() => onDeleteSubTopic(topicName, sub)}
-                  className="hover:text-rose-400"
+                  className="hover:text-rose-500"
                   aria-label="Delete"
                 >
                   ×
@@ -149,18 +149,18 @@ export function TopicSection({
                   onChange={(e) => setNewSubName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddSubTopic()}
                   placeholder="Sub-topic name"
-                  className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-1 rounded-lg bg-white border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   autoFocus
                 />
                 <button
                   onClick={handleAddSubTopic}
-                  className="px-3 py-1 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-medium shadow-sm shadow-indigo-500/30"
+                  className="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-medium shadow-sm shadow-emerald-500/30"
                 >
                   Add
                 </button>
                 <button
                   onClick={() => { setShowAddSub(false); setNewSubName(''); }}
-                  className="px-3 py-1 rounded-lg text-slate-400 hover:text-white text-sm"
+                  className="px-3 py-1 rounded-lg text-slate-500 hover:text-slate-800 text-sm"
                 >
                   Cancel
                 </button>
@@ -168,7 +168,7 @@ export function TopicSection({
             ) : (
               <button
                 onClick={() => setShowAddSub(true)}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-dashed border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-300 text-xs transition-colors bg-slate-900/60"
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-dashed border-slate-300 text-slate-500 hover:border-emerald-500 hover:text-emerald-600 text-xs transition-colors bg-slate-50"
               >
                 + Add sub-topic
               </button>
@@ -193,7 +193,7 @@ export function TopicSection({
 
           <button
             onClick={() => onAddQuestion(topicName)}
-            className="w-full py-3 rounded-xl border border-dashed border-slate-700 text-slate-400 hover:border-indigo-500 hover:text-indigo-300 transition-colors text-sm font-medium bg-slate-900/60"
+            className="w-full py-3 rounded-xl border border-dashed border-slate-300 text-slate-500 hover:border-emerald-500 hover:text-emerald-600 transition-colors text-sm font-medium bg-slate-50"
           >
             + Add question
           </button>

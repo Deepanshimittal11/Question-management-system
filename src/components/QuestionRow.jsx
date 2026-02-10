@@ -2,9 +2,9 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const difficultyColors = {
-  Easy: 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/40',
-  Medium: 'bg-amber-500/10 text-amber-300 ring-1 ring-amber-400/40',
-  Hard: 'bg-rose-500/10 text-rose-300 ring-1 ring-rose-500/40',
+  Easy: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200',
+  Medium: 'bg-amber-50 text-amber-700 ring-1 ring-amber-200',
+  Hard: 'bg-rose-50 text-rose-700 ring-1 ring-rose-200',
 };
 
 export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
@@ -28,14 +28,14 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
       style={style}
       className={`group flex items-center gap-3 rounded-xl border px-4 py-3 transition-all ${
         isDragging
-          ? 'border-indigo-500/80 bg-slate-800/90 shadow-xl shadow-indigo-500/30 opacity-95'
-          : 'border-slate-700/70 bg-slate-900/70 hover:border-slate-500 hover:bg-slate-800/70'
+          ? 'border-emerald-500/80 bg-emerald-50 shadow-xl shadow-emerald-200/70 opacity-95'
+          : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
       }`}
     >
       <button
         {...attributes}
         {...listeners}
-        className="cursor-grab active:cursor-grabbing touch-none p-1 text-slate-400 hover:text-slate-300 rounded"
+        className="cursor-grab active:cursor-grabbing touch-none p-1 text-slate-400 hover:text-slate-600 rounded"
         aria-label="Drag to reorder"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
@@ -63,8 +63,8 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
           href={question.questionId.problemUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block truncate font-medium hover:text-indigo-300 transition-colors ${
-            question.isSolved ? 'text-slate-400 line-through' : 'text-slate-100'
+          className={`block truncate font-medium hover:text-emerald-300 transition-colors ${
+            question.isSolved ? 'text-slate-400 line-through' : 'text-slate-900'
           }`}
         >
           {question.title}
@@ -72,14 +72,14 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
         <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-medium ${
-              difficultyColors[question.questionId.difficulty] || 'bg-slate-800 text-slate-300 ring-1 ring-slate-600'
+              difficultyColors[question.questionId.difficulty] || 'bg-slate-100 text-slate-700 ring-1 ring-slate-200'
             }`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-current opacity-80" />
             <span>{question.questionId.difficulty}</span>
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-slate-800/70 px-2 py-0.5 font-mono text-[11px] text-slate-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-600">
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
             <span>{question.questionId.platform}</span>
           </span>
         </div>
@@ -90,7 +90,7 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
             href={question.resource}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-600 transition-colors"
+            className="p-2 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 transition-colors"
             title="Video resource"
             aria-label="Open video resource"
           >
@@ -101,7 +101,7 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
         )}
         <button
           onClick={() => onEdit(question)}
-          className="p-2 rounded text-slate-400 hover:text-indigo-400 hover:bg-slate-600 transition-colors"
+          className="p-2 rounded text-slate-400 hover:text-emerald-500 hover:bg-slate-100 transition-colors"
           aria-label="Edit question"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ export function QuestionRow({ question, onToggleSolved, onEdit, onDelete }) {
         </button>
         <button
           onClick={() => onDelete(question._id)}
-          className="p-2 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-600 transition-colors"
+          className="p-2 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 transition-colors"
           aria-label="Delete question"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
