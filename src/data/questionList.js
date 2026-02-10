@@ -212,16 +212,27 @@ const questions = [
 ];
 
 export function buildSampleQuestions() {
-  const topicOrder = [...new Set(questions.map((q) => q[0]))];
+  const EXCLUDED_TOPICS = new Set([
+    'Arrays Part-III',
+    'Linked List and Arrays',
+    'Binary Tree part-III',
+    'Binary Trees[Miscellaneous]',
+  ]);
+
+  const topicOrder = [...new Set(questions.map((q) => q[0]).filter((t) => !EXCLUDED_TOPICS.has(t)))];
   const result = [];
   questions.forEach((q, i) => {
+    if (EXCLUDED_TOPICS.has(q[0])) return;
+
     const id = `q${i + 1}`;
     const [topic, title, slug, difficulty, name] = q;
+    const baseTitle = title || name;
+    const displayTitle = `${baseTitle} (Practice Variant)`;
     result.push({
       _id: id,
       topic,
       subTopic: null,
-      title,
+      title: displayTitle,
       questionId: LEETCODE(slug, i + 1, difficulty, name),
       resource: null,
       isSolved: false,
